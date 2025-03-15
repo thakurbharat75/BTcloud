@@ -19,8 +19,9 @@ jobs:
 
     - name: Copy index.html to EC2
       run: |
-        ssh -o StrictHostKeyChecking=no ubuntu@44.212.20.16 'sudo cp /var/www/index.html /var/www/html/index.html'
+        scp -o StrictHostKeyChecking=no -i ${{ secrets.EC2_SSH_PRIVATE_KEY }} ./index.html ubuntu@44.212.22.146:/var/www/html/index.html
+
 
     - name: Restart Apache
       run: |
-        ssh -o StrictHostKeyChecking=no ubuntu@44.212.20.16  'sudo systemctl restart apache2'
+        ssh -o StrictHostKeyChecking=no ubuntu@44.212.22.146  'sudo systemctl restart apache2'
