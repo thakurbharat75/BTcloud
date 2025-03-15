@@ -19,8 +19,7 @@ jobs:
 
     - name: Copy index.html to EC2
       run: |
-         INDEX_CONTENT=$(<index.html)
-         ssh -o StrictHostKeyChecking=no ubuntu@44.212.22.146 "echo \"$INDEX_CONTENT\" | sudo tee /var/www/html/index.html > /dev/null"
+         ssh -o StrictHostKeyChecking=no ubuntu@44.212.22.146 "sudo tee /var/www/html/index.html" < ./index.html
 
 
     - name: Restart Apache
