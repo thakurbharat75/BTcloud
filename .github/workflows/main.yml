@@ -23,4 +23,4 @@ jobs:
 
     - name: Restart Apache
       run: |
-        ssh -o StrictHostKeyChecking=no ubuntu@44.212.20.16  'sudo systemctl restart httpd'
+        ssh -o StrictHostKeyChecking=no ubuntu@44.212.20.16  'sudo systemctl restart apache2'
