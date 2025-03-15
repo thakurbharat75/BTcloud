@@ -1,0 +1,28 @@
+name: Deploy to EC2
+
+on:
+  push:
+    branches:
+      - main  # Trigger on push to the main branch (change to the branch of your choice)
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout the repository
+      uses: actions/checkout@v2
+
+    - name: Set up SSH
+      uses: webfactory/ssh-agent@v0.5.3
+      with:
+        ssh-private-key: ${{ secrets.EC2_SSH_PRIVATE_KEY }}
+
+    - name: Copy index.html to EC2
+      run: |
+        ssh -o StrictHostKeyChecking=no ec2-user@your-ec2-public-ip 'sudo cp /path/to/repository/index.html /var/www/html/index.html'
+      env:
+        SSH_AUTH_SOCK: ${{ secrets.SSH_AUTH_SOCK }}
+
+    - name: Restart Apache
+      run: |
+        ssh -o StrictHostKeyChecking=no ec2-user@your-ec2-public-ip 'sudo systemctl restart httpd'
