@@ -3,7 +3,7 @@ name: Deploy to EC2
 on:
   push:
     branches:
-      - main  # Trigger on push to the main branch (change to the branch of your choice)
+      - main  
 
 jobs:
   deploy:
@@ -20,8 +20,6 @@ jobs:
     - name: Copy index.html to EC2
       run: |
         ssh -o StrictHostKeyChecking=no ubuntu@44.212.20.16 'sudo cp /path/to/repository/index.html /var/www/html/index.html'
-      env:
-        SSH_AUTH_SOCK: ${{ secrets.SSH_AUTH_SOCK }}
 
     - name: Restart Apache
       run: |
