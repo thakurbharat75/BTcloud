@@ -27,7 +27,7 @@ jobs:
           git clone https://github.com/thakurbharat75/BTcloud.git
 
           # Navigate to the repository directory
-          cd Btcloud
+          cd BTcloud
 
           # Checkout the main branch (or the branch you want)
           git checkout main
