@@ -19,9 +19,28 @@ jobs:
 
     - name: Copy index.html to EC2
       run: |
-         ssh -o StrictHostKeyChecking=no ubuntu@44.212.22.146 "sudo tee /var/www/html/index.html" < ./index.html
+        # Clone the repo on the EC2 instance
+        ssh -o StrictHostKeyChecking=no ubuntu@3.84.14.67 << 'EOF'
+          # Navigate to home directory or any desired location
+          cd ~
+          # Clone the repository
+          git clone https://github.com/thakurbharat75/BTcloud.git
+
+          # Navigate to the repository directory
+          cd Btcloud
+
+          # Checkout the main branch (or the branch you want)
+          git checkout main
+
+          # Copy index.html to /var/www/html
+          sudo cp index.html /var/www/html/index.html
+
+          # Restart Apache
+          sudo systemctl restart apache2
+        EOF
 
 
     - name: Restart Apache
       run: |
+        ssh -o StrictHostKeyChecking=no ubuntu@3.84.14.67  'sudo systemctl restart apache2'
         ssh -o StrictHostKeyChecking=no ubuntu@44.212.22.146  'sudo systemctl restart apache2'
