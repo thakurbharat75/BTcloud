@@ -43,4 +43,3 @@ jobs:
     - name: Restart Apache
       run: |
         ssh -o StrictHostKeyChecking=no ubuntu@3.84.14.67  'sudo systemctl restart apache2'
-        ssh -o StrictHostKeyChecking=no ubuntu@44.212.22.146  'sudo systemctl restart apache2'
