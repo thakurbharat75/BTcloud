@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rails-app-manual
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rails-app-manual
+  template:
+    metadata:
+      labels:
+        app: rails-app-manual
+    spec:
+      containers:
+        - name: rails-app
+          image: thakurbharat75/rails-app:latest
+          ports:
+            - containerPort: 3000

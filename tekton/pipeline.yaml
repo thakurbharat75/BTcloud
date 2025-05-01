@@ -1,0 +1,9 @@
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: rails-deploy-pipeline
+spec:
+  tasks:
+    - name: deploy
+      taskRef:
+        name: kubernetes-deploy
