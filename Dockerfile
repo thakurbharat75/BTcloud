@@ -4,4 +4,4 @@ WORKDIR /app
 COPY . .
 RUN bundle install
 EXPOSE 3000
-CMD ["bundle", "exec", "rails", "s"]
+CMD ["bundle", "exec", "rails", "s"
