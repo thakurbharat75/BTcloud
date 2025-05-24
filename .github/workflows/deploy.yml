@@ -41,3 +41,25 @@ jobs:
           context: ./frontend
           push: true
           tags: thakurbharat75/todo-frontend:latest
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy to Docker Host via SSH
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            docker pull thakurbharat75/todo-backend:latest
+            docker pull thakurbharat75/todo-frontend:latest
+
+            docker stop backend || true && docker rm backend || true
+            docker stop frontend || true && docker rm frontend || true
+
+            docker run -d --name backend -p 5000:5000 thakurbharat75/todo-backend:latest
+            docker run -d --name frontend -p 3000:80 thakurbharat75/todo-frontend:latest
+
+  
